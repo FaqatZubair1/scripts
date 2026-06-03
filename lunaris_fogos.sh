@@ -58,3 +58,8 @@ echo "=================="
 
 # Build rom
 m bacon
+# Upload to Pixeldrain and send link to Telegram
+RESPONSE=$(curl -s -T out/target/product/fogos/*.zip https://pixeldrain.com/api/file/)
+FILE_ID=$(echo $RESPONSE | grep -o '"id":"[^"]*' | cut -d'"' -f4)
+LINK="https://pixeldrain.com/u/$FILE_ID"
+curl -s "https://api.telegram.org/bot7795105349:AAGA0F3SHknpjsNAC_sYqdCu2dx0uh90M-Q/sendMessage?chat_id=6870310440&text=Build+done!+Download:+$LINK"
