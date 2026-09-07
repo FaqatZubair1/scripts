@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# Rom source repo
+        repo init -u https://github.com/VoltageOS/manifest.git -b 17 --git-lfs
+        repo sync
+echo "Repo init success"
+echo "=================="
+
+echo "===== Sync the repositories ========"
+
+/opt/crave/resync.sh
+
+echo "======== Syncing Done =========="
+
+echo "======= Remove Project ========="
+
+rm -rf .repo/local_manifests
+rm -rf kernel/*
+rm -rf device/*
+rm -rf vendor/*
+rm -rf hardware/*
+
+echo "======= Remove Done ======"
+
+git clone --depth=1 https://github.com/project-moon-gazer/android_device_motorola_fogos.git -b vos-https device/motorola/fogos
+bash d*/m*/f*/vendorsetup.sh 
+
+echo "=================="
+echo "Cloning Done"
+echo "=================="
+
+# Exports
+export BUILD_USERNAME=Niggesha
+export BUILD_HOSTNAME=CraveCloud
+export TZ=Asia/Bishkek
+
+echo "=================="
+echo " Exports Done "
+echo "=================="
+
+# Set up build environment
+
+echo "====== Envsetup Done ======="
+bash  v*/v*/ke*/keys.sh
+
+echo "============="
+. b*/env*
+# Clean
+make installclean
+
+echo "=================="
+echo "Building Rom"
+echo "=================="
+
+# Build rom
+brunch fogos
