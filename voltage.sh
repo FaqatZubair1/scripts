@@ -2,7 +2,7 @@
 
 # Rom source repo
         repo init -u https://github.com/VoltageOS/manifest.git -b 17 --git-lfs
-        repo sync
+        
 echo "Repo init success"
 echo "=================="
 
