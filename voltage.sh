@@ -39,15 +39,9 @@ echo " Exports Done "
 echo "=================="
 
 # Set up build environment
-
-echo "====== Envsetup Done ======="
-cd  v*/v*/ke*
-bash keys.sh
-cd ../../..
-echo "============="
 . b*/env*
 # Clean
-make installclean
+make clean
 
 echo "=================="
 echo "Building Rom"
