@@ -1,5 +1,13 @@
 #!/bin/bash
+echo "======= Remove Project ========="
 
+rm -rf .repo/local_manifests
+rm -rf kernel/*
+rm -rf device/*
+rm -rf vendor/*
+rm -rf hardware/*
+
+echo "======= Remove Done ======"
 # Rom source repo
         repo init -u https://github.com/VoltageOS/manifest.git -b 17 --git-lfs
         
@@ -12,15 +20,7 @@ echo "===== Sync the repositories ========"
 
 echo "======== Syncing Done =========="
 
-echo "======= Remove Project ========="
 
-rm -rf .repo/local_manifests
-rm -rf kernel/*
-rm -rf device/*
-rm -rf vendor/*
-rm -rf hardware/*
-
-echo "======= Remove Done ======"
 
 git clone --depth=1 https://github.com/project-moon-gazer/android_device_motorola_fogos.git -b vos-https device/motorola/fogos
 bash d*/m*/f*/vendorsetup.sh 
