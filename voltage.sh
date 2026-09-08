@@ -52,4 +52,4 @@ echo "Building Rom"
 echo "=================="
 
 # Build rom
-brunch fogos -j4
+brunch fogos
