@@ -7,6 +7,7 @@ rm -rf device/*
 rm -rf vendor/*
 rm -rf hardware/*
 rm -rf out/soong
+rm -rf prebuilt/gcc
 
 echo "======= Remove Done ======"
 # Rom source repo
