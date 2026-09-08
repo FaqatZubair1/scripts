@@ -6,6 +6,7 @@ rm -rf kernel/*
 rm -rf device/*
 rm -rf vendor/*
 rm -rf hardware/*
+rm -rf out/soong
 
 echo "======= Remove Done ======"
 # Rom source repo
@@ -50,4 +51,4 @@ echo "Building Rom"
 echo "=================="
 
 # Build rom
-brunch fogos
+brunch fogos -j4
