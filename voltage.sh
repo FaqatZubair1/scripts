@@ -37,7 +37,9 @@ export TZ=Asia/Bishkek
 echo "=================="
 echo " Exports Done "
 echo "=================="
-
+cd v*/v*/ke*
+bash keys.sh
+cd ../../..
 # Set up build environment
 . b*/env*
 # Clean
