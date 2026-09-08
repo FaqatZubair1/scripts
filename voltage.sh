@@ -41,8 +41,9 @@ echo "=================="
 # Set up build environment
 
 echo "====== Envsetup Done ======="
-bash  v*/v*/ke*/keys.sh
-
+cd  v*/v*/ke*
+bash keys.sh
+cd ../../..
 echo "============="
 . b*/env*
 # Clean
