@@ -11,7 +11,7 @@ rm -rf hardware/*
 
 echo "======= Remove Done ======"
 # Rom source repo
-        repo init -u https://github.com/VoltageOS/manifest.git -b 17 --git-lfs
+        repo init -u https://github.com/VoltageOS/manifest.git -b 17 --git-lfs --depth=1
         
 echo "Repo init success"
 echo "=================="
