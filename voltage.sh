@@ -6,7 +6,7 @@ rm -rf kernel/*
 rm -rf device/*
 rm -rf vendor/*
 rm -rf hardware/*
-rm -rf out/soong
+
 
 
 echo "======= Remove Done ======"
@@ -44,8 +44,7 @@ bash ./keys.sh
 cd ../../..
 # Set up build environment
 . b*/env*
-# Clean
-make clean
+
 
 echo "=================="
 echo "Building Rom"
