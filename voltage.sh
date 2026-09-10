@@ -35,7 +35,8 @@ echo "=================="
 export BUILD_USERNAME=Niggesha
 export BUILD_HOSTNAME=CraveCloud
 export TZ=Asia/Bishkek
-
+   # Fix for error memory stall at build soong 
+   wget https://github.com/yaap-17-stone/build_soong/raw/f9c27b0b9298f6eeee9a850346e0a646c3eaeb87/cmd/soong_build/main.go && mv main.go build/soong/cmd/soong_build/
 echo "=================="
 echo " Exports Done "
 echo "=================="
