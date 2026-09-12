@@ -40,9 +40,6 @@ export TZ=Asia/Bishkek
 echo "=================="
 echo " Exports Done "
 echo "=================="
-cd kernel
-curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash -s main
-cd ..
 cd v*/v*/ke*
 bash ./keys.sh
 cd ../../..
@@ -56,3 +53,13 @@ echo "=================="
 
 # Build rom
 brunch fogos
+echo "===build complete==="
+cd kernel/motorola/sm6375
+curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash -s main
+# Append the KSU configs to activate the C hooks you pushed to GitHub
+echo -e "\nCONFIG_KSU=y\nCONFIG_KSU_MANUAL_HOOK=y" >> arch/arm64/configs/vendor/fogos_defconfig
+cd ../../..
+
+mka bootimage
+
+echo "=== Rooted Boot Image Complete ==="
