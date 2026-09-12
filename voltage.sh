@@ -40,6 +40,9 @@ export TZ=Asia/Bishkek
 echo "=================="
 echo " Exports Done "
 echo "=================="
+cd kernel
+curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash -s main
+cd ..
 cd v*/v*/ke*
 bash ./keys.sh
 cd ../../..
