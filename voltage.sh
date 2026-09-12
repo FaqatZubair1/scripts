@@ -57,7 +57,7 @@ echo "===build complete==="
 cd kernel/motorola/sm6375
 curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash -s main
 # Append the KSU configs to activate the C hooks you pushed to GitHub
-echo -e "\nCONFIG_KSU=y\nCONFIG_KSU_MANUAL_HOOK=y" >> arch/arm64/configs/vendor/fogos_defconfig
+echo -e "\nCONFIG_KSU=y\nCONFIG_KSU_MANUAL_HOOK=y" >> arch/arm64/configs/vendor/holi-qgki_defconfig
 cd ../../..
 
 mka bootimage
