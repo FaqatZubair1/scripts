@@ -55,3 +55,21 @@ echo "=================="
 brunch fogos
 echo "===build complete==="
 
+cd kernel/motorola/sm637*
+curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -s legacy
+# hooks ksu nxt
+cat << 'EOF' >> arch/arm64/configs/vendor/holi-qgki_defconfig
+
+# KernelSU Kprobe Hooking
+CONFIG_KSU=y
+CONFIG_KPROBES=y
+CONFIG_HAVE_KPROBES=y
+CONFIG_KPROBE_EVENTS=y
+CONFIG_KALLSYMS=y
+CONFIG_KALLSYMS_ALL=y
+EOF
+cd ../../..
+rm -rf out/target/product/fogos/obj/kernel
+
+mka bootimage
+
