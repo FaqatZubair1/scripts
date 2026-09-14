@@ -54,13 +54,4 @@ echo "=================="
 # Build rom
 brunch fogos
 echo "===build complete==="
-cd kernel/motorola/sm637*
-curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash -s main || { echo "ReSukiSU setup failed"; exit 1; }
-# Append the KSU configs to activate the C hooks you pushed to GitHub
-echo -e "\nCONFIG_KSU=y\nCONFIG_KSU_MANUAL_HOOK=y" >> arch/arm64/configs/vendor/holi-qgki_defconfig
-cd ../../..
-rm -rf out/target/product/fogos/obj/kernel 
 
-mka bootimage
-
-echo "=== Rooted Boot Image Complete ==="
