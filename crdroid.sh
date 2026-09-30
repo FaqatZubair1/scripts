@@ -11,7 +11,7 @@ rm -rf hardware/*
 
 echo "======= Remove Done ======"
 # Rom source repo
-       repo init -u https://github.com/crdroidandroid/android.git -b 17.0 --git-lfs --no-clone-bundle --depth=1
+        repo init -u https://github.com/VoltageOS/manifest.git -b 17 --git-lfs --depth=1
         
 echo "Repo init success"
 echo "=================="
@@ -24,7 +24,7 @@ echo "======== Syncing Done =========="
 
 
 
-git clone --depth=1 https://github.com/project-moon-gazer/android_device_motorola_fogos.git -b crdroid device/motorola/fogos
+git clone --depth=1 https://github.com/project-moon-gazer/android_device_motorola_fogos.git -b vos-https device/motorola/fogos
 bash d*/m*/f*/vendorsetup.sh 
 
 echo "=================="
@@ -40,6 +40,9 @@ export TZ=Asia/Bishkek
 echo "=================="
 echo " Exports Done "
 echo "=================="
+cd v*/v*/ke*
+bash ./keys.sh
+cd ../../..
 # Set up build environment
 . b*/env*
 
