@@ -55,5 +55,5 @@ echo "Building Rom"
 echo "=================="
 
 # Build rom
-brunch fogos
+mka bootimage
 echo "===build complete==="
