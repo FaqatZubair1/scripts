@@ -40,6 +40,9 @@ export TZ=Asia/Bishkek
 echo "=================="
 echo " Exports Done "
 echo "=================="
+cd kernel/motorola/sm637*
+curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -s legacy
+cd ../../..
 cd v*/v*/ke*
 bash ./keys.sh
 cd ../../..
