@@ -55,5 +55,6 @@ echo "Building Rom"
 echo "=================="
 
 # Build rom
+lunch voltage_fogos-cp2a-user
 mka bootimage
 echo "===build complete==="
