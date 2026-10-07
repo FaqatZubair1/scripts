@@ -40,7 +40,10 @@ export TZ=Asia/Bishkek
 echo "=================="
 echo " Exports Done "
 echo "=================="
-
+echo "===== Reverting DeviceSettings Commit ====="
+cd packages/resources/devicesettings
+git revert 01e10339ef91d02ec0af338e54eb72af40a48368 --no-edit
+cd ../../..
 cd v*/v*/ke*
 bash ./keys.sh
 cd ../../..
