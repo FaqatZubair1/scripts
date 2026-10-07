@@ -43,7 +43,7 @@ echo "=================="
 
 cd v*/v*/ke*
 bash ./keys.sh
-
+cd ../../..
 # Set up build environment
 . b*/env*
 
