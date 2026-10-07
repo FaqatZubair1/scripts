@@ -55,7 +55,3 @@ echo "=================="
 # Build rom
 brunch fogos
 echo "===build complete==="
-cd kernel/motorola/sm637*
-curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -s legacy
-cd ../../..
-mka bootimage
