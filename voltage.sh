@@ -41,7 +41,6 @@ echo "=================="
 echo " Exports Done "
 echo "=================="
 
-cd ../../..
 cd v*/v*/ke*
 bash ./keys.sh
 
