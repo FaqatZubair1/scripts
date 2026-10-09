@@ -40,6 +40,12 @@ export TZ=Asia/Bishkek
 echo "=================="
 echo " Exports Done "
 echo "=================="
+echo " adding ksu "
+cd kernel/motorola/sm637*
+curl -LSs https://raw.githubusercontent.com/FaqatZubair1/scripts/main/ksu_backslashxx.sh | bash
+cd ../../..
+echo " ksu done "
+echo " generating keys "
 cd v*/v*/ke*
 bash ./keys.sh
 cd ../../..
@@ -53,4 +59,4 @@ echo "=================="
 
 # Build rom
 brunch fogos
-echo "===build complete==="
+echo "===done=="
