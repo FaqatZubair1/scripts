@@ -45,6 +45,18 @@ cd kernel/motorola/sm637*
 curl -LSs https://raw.githubusercontent.com/FaqatZubair1/scripts/main/ksu_backslashxx.sh | bash
 cd ../../..
 echo " ksu done "
+
+echo "trying to fix freeform"
+
+cd packages/apps/LMOFreeform
+git revert 7634a554c90d81b0a80b2ed36b9e45e7acd44ea6
+git revert fd7f4f52b81a6fd1db39cea426cbd5b24d24ec2b
+git revert c25f56197048a56500abe8ec2b0bb599b9e93020
+git cherry-pick d859cef934a43dad35d0c234f744448616800194
+git cherry-pick bc48b74c26e2bc04d7c300f71134e32d5f59102d
+cd ../../..
+echo "hope it was fixed"
+
 echo " generating keys "
 cd v*/v*/ke*
 bash ./keys.sh
