@@ -46,6 +46,18 @@ curl -LSs https://raw.githubusercontent.com/FaqatZubair1/scripts/main/ksu_backsl
 cd ../../..
 echo " ksu done "
 
+echo "trying to fix per-app rotation"
+cd packages/apps/Settings
+
+# Download the patch
+curl -sLo per_app_rotation_toggle.patch https://raw.githubusercontent.com/FaqatZubair1/scripts/main/per_app_rotation_toggle.patch
+
+# Apply using git apply
+git apply per_app_rotation_toggle.patch
+
+cd ../../../
+
+echo "hope it's fixed"
 echo " generating keys "
 cd v*/v*/ke*
 bash ./keys.sh
