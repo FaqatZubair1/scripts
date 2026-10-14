@@ -1,0 +1,39 @@
+diff --git a/res/values/voltage_strings.xml b/res/values/voltage_strings.xml
+index b24abf8..40ccd61 100644
+--- a/res/values/voltage_strings.xml
++++ b/res/values/voltage_strings.xml
+@@ -342,7 +342,7 @@ When the screen is off, the torch can be enabled with one of the following key c
+     <string name="search_menu">Search apps</string>
+     <string name="show_system_apps">Show system apps</string>
+     <string name="per_app_rotation_global_switch_title">Force app rotation control</string>
+-    <string name="per_app_rotation_global_switch_summary">Force this device to respect per-app rotation settings. Required on tablets and large-screen devices.</string>
++    <string name="per_app_rotation_global_switch_summary">Enable per-app rotation settings. Turn this on for the per-app rotation choices below to take effect.</string>
+ 
+     <!-- Wake on plug -->
+     <string name="wake_when_plugged_or_unplugged_title">Wake on plug</string>
+diff --git a/src/com/android/settings/display/PerAppRotationGlobalSwitchController.java b/src/com/android/settings/display/PerAppRotationGlobalSwitchController.java
+index 6d19cb4..9a77555 100644
+--- a/src/com/android/settings/display/PerAppRotationGlobalSwitchController.java
++++ b/src/com/android/settings/display/PerAppRotationGlobalSwitchController.java
+@@ -16,7 +16,6 @@
+ package com.android.settings.display;
+ 
+ import android.content.Context;
+-import android.content.res.Configuration;
+ import android.provider.Settings;
+ import com.android.settings.R;
+ import com.android.settings.core.TogglePreferenceController;
+@@ -29,10 +28,9 @@ public class PerAppRotationGlobalSwitchController extends TogglePreferenceContro
+ 
+     @Override
+     public int getAvailabilityStatus() {
+-        Configuration config = mContext.getResources().getConfiguration();
+-        int screenLayout = config.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+-        boolean isLargeScreen = screenLayout >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+-        return isLargeScreen ? AVAILABLE : CONDITIONALLY_UNAVAILABLE;
++        // Per-app rotation is gated by this switch in the framework
++        // (DisplayRotation#mPerAppRotationEnabled) on every device, so always show it.
++        return AVAILABLE;
+     }
+ 
+     @Override
