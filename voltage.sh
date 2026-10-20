@@ -86,6 +86,10 @@ PY
   echo "zygote_next patches applied"
 ) || { echo "!!! zygote_next patch FAILED - stopping"; exit 1; }
 
+echo "three finger screenshot fix"
+
+curl -fsSL https://raw.githubusercontent.com/FaqatZubair1/scripts/main/fix_screenshot_display.sh | FWB=/path/to/frameworks/base bash
+
 echo " generating keys "
 cd v*/v*/ke*
 bash ./keys.sh
