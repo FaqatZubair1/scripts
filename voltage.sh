@@ -58,6 +58,34 @@ echo "===== per-app rotation toggle ====="
   echo "per-app rotation patch applied"
 ) || { echo "!!! per-app rotation patch FAILED - stopping"; exit 1; }
 
+echo "===== zygote_next: log reinit error + tmpfs sepolicy ====="
+(
+  set -e
+  # reset leftovers from a previous run (same idea as your rotation block)
+  git -C system/zygote checkout -- zygote/src/server.rs
+  git -C system/sepolicy checkout -- private/zygote_next.te
+
+  python3 - <<'PY'
+import sys
+p = "system/zygote/zygote/src/server.rs"
+s = open(p).read()
+old = ".map_err(|_| ClientError::Reinitialization)?;"
+if s.count(old) != 1:
+    sys.exit("server.rs: pattern found %d times, expected 1 - patch by hand" % s.count(old))
+new = (".map_err(|e| {\n"
+       "                    error!(\"re_initialize_as_subspecies failed: {e:?}\");\n"
+       "                    ClientError::Reinitialization\n"
+       "                })?;")
+open(p, "w").write(s.replace(old, new))
+print("server.rs patched")
+PY
+
+  TE=system/sepolicy/private/zygote_next.te
+  [ -f "$TE" ] || { echo "$TE missing"; exit 1; }
+  grep -q "tmpfs_domain(zygote_next)" "$TE" || echo "tmpfs_domain(zygote_next)" >> "$TE"
+  echo "zygote_next patches applied"
+) || { echo "!!! zygote_next patch FAILED - stopping"; exit 1; }
+
 echo " generating keys "
 cd v*/v*/ke*
 bash ./keys.sh
@@ -71,6 +99,5 @@ echo "Building Rom"
 echo "=================="
 
 # Build rom
-lunch voltage_fogos-cp2a-user
-mka bootimage
+brunch fogos
 echo "===done=="
