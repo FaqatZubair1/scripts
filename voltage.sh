@@ -61,7 +61,7 @@ echo "===== per-app rotation toggle ====="
 echo "===== zygote_next: log reinit error + tmpfs sepolicy ====="
 (
   set -e
-  # reset leftovers from a previous run (same idea as your rotation block)
+  # reset leftovers from a previous run
   git -C system/zygote checkout -- zygote/src/server.rs
   git -C system/sepolicy checkout -- private/zygote_next.te
 
@@ -82,7 +82,12 @@ PY
 
   TE=system/sepolicy/private/zygote_next.te
   [ -f "$TE" ] || { echo "$TE missing"; exit 1; }
-  grep -q "tmpfs_domain(zygote_next)" "$TE" || echo "tmpfs_domain(zygote_next)" >> "$TE"
+  grep -q "tmpfs_domain(zygote_next)" "$TE" || cat >> "$TE" <<'EOF'
+
+# tmpfs typing for zygote_next memfds (fixes Chrome app-zygote helper dying in enforcing)
+type zygote_next_tmpfs, file_type;
+tmpfs_domain(zygote_next)
+EOF
   echo "zygote_next patches applied"
 ) || { echo "!!! zygote_next patch FAILED - stopping"; exit 1; }
 
