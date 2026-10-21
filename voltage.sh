@@ -80,6 +80,38 @@ open(p, "w").write(s.replace(old, new))
 print("server.rs patched")
 PY
 
+  python3 - <<'PY'
+p = "system/zygote/zygote/src/server.rs"
+s = open(p).read()
+
+def ins_after(s, anchor, text, label):
+    if s.count(anchor) != 1:
+        print("[dbg] WARNING anchor for %s found %d times - skipped" % (label, s.count(anchor)))
+        return s
+    return s.replace(anchor, anchor + text)
+
+# who calls remove_client_socket, with which fd, and a backtrace
+s = ins_after(s,
+  "fn remove_client_socket(&mut self, fd: RawFd) -> ClientResult<()> {\n",
+  "        error!(\"DBG remove_client_socket fd={fd} bt={}\", std::backtrace::Backtrace::force_capture());\n",
+  "remove_client_socket")
+
+# did re-init start / finish
+s = ins_after(s,
+  "fn re_initialize_as_subspecies(&mut self, child_socket_path: String) -> ServerResult<()> {\n",
+  "        error!(\"DBG reinit start\");\n",
+  "reinit start")
+anchor = "        self.pid = sys::getpid();\n\n        Ok(())\n"
+if s.count(anchor) == 1:
+    s = s.replace(anchor, "        self.pid = sys::getpid();\n        error!(\"DBG reinit done\");\n\n        Ok(())\n")
+else:
+    print("[dbg] WARNING reinit-done anchor found %d times - skipped" % s.count(anchor))
+
+open(p, "w").write(s)
+print("[dbg] done")
+PY
+
+
   TE=system/sepolicy/private/zygote_next.te
   [ -f "$TE" ] || { echo "$TE missing"; exit 1; }
   grep -q "tmpfs_domain(zygote_next)" "$TE" || cat >> "$TE" <<'EOF'
