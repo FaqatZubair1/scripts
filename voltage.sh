@@ -109,4 +109,4 @@ echo "=================="
 
 # Build rom
 brunch fogos
-echo "===done=="
+
