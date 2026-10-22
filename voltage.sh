@@ -126,3 +126,15 @@ EOF
 
 echo " build again with zygote fix"
 brunch fogos
+
+echo "making resukisu boot.img"
+rm -rf kernel/moto*/sm*
+git clone https://github.com/project-moon-gazer/android_kernel_motorola_sm6375.git -b susfs kernel/motorola/sm6375
+ cd kernel/moto*/sm*
+curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
+
+cd ../../..
+
+lunch voltage_fogos-cp2a-user
+
+mka bootimage
