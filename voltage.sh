@@ -108,8 +108,6 @@ echo "three finger screenshot fix"
 curl -fsSL https://raw.githubusercontent.com/FaqatZubair1/scripts/main/fix_screenshot_display.sh | bash
 
 
-curl -fsSL https://raw.githubusercontent.com/FaqatZubair1/scripts/main/bitperfect_direct.sh | bash
-
 echo " generating keys "
 cd v*/v*/ke*
 bash ./keys.sh
