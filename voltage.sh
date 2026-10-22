@@ -76,18 +76,16 @@ echo "Building Rom"
 echo "=================="
 
 # Build rom
-brunch fogos
-
-
-
 echo "making resukisu boot.img"
 rm -rf kernel/moto*/sm*
 git clone https://github.com/project-moon-gazer/android_kernel_motorola_sm6375.git -b susfs kernel/motorola/sm6375
- cd kernel/moto*/sm*
-curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
-
+cd kernel/moto*/sm*
+git submodule update --init --depth=1 KernelSU
+ln -sfn ../KernelSU/kernel drivers/kernelsu
+# fail early instead of 2 hours into the build
+[ -f drivers/kernelsu/Kconfig ] || { echo "!!! KernelSU Kconfig missing"; exit 1; }
+grep -q kernelsu drivers/Makefile || printf '\nobj-$(CONFIG_KSU) += kernelsu/\n' >> drivers/Makefile
 cd ../../..
 
 lunch voltage_fogos-cp2a-user
-
 mka bootimage
