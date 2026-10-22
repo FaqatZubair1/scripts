@@ -79,53 +79,6 @@ echo "=================="
 brunch fogos
 
 
-echo "===== zygote_next: anon-inode fd classification fix + tmpfs sepolicy ====="
-(
-  set -e
-  git -C system/zygote checkout -- zygote/src/server.rs zygote/src/file_descriptors.rs
-  git -C system/sepolicy checkout -- private/zygote_next.te
-
-  python3 - <<'PY'
-import sys
-p = "system/zygote/zygote/src/file_descriptors.rs"
-s = open(p).read()
-old = "            libc::S_IFCHR | libc::S_IFREG => Self::get_file_info(fd, &stat),\n"
-if s.count(old) != 1:
-    sys.exit("file_descriptors.rs: anchor found %d times, expected 1" % s.count(old))
-new = '''            libc::S_IFCHR | libc::S_IFREG => {
-                // Older kernels (e.g. 5.4) report anonymous inodes such as
-                // signalfd and eventpoll as S_IFCHR; classify them by their
-                // /proc link like the fallback arm below does.
-                if let Ok(link) = get_proc_fd_link_info(fd) {
-                    if let Ok(link_cstr) = link.as_cstr() {
-                        if link_cstr == PROC_METADATA_SIGNALFD {
-                            return Ok(FileDescriptorInfo::SignalFd);
-                        }
-                        if link_cstr == PROC_METADATA_EPOLLFD {
-                            return Ok(FileDescriptorInfo::EPollFd);
-                        }
-                    }
-                }
-                Self::get_file_info(fd, &stat)
-            }
-'''
-open(p, "w").write(s.replace(old, new))
-print("file_descriptors.rs patched")
-PY
-
-  TE=system/sepolicy/private/zygote_next.te
-  [ -f "$TE" ] || { echo "$TE missing"; exit 1; }
-  grep -q "tmpfs_domain(zygote_next)" "$TE" || cat >> "$TE" <<'EOF'
-
-# tmpfs typing for zygote_next memfds (fixes Chrome app-zygote helper dying in enforcing)
-type zygote_next_tmpfs, file_type;
-tmpfs_domain(zygote_next)
-EOF
-  echo "zygote_next patches applied"
-) || { echo "!!! zygote_next patch FAILED - stopping"; exit 1; }
-
-echo " build again with zygote fix"
-brunch fogos
 
 echo "making resukisu boot.img"
 rm -rf kernel/moto*/sm*
