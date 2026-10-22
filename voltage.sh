@@ -59,6 +59,9 @@ echo "three finger screenshot fix"
 
 curl -fsSL https://raw.githubusercontent.com/FaqatZubair1/scripts/main/fix_screenshot_display.sh | bash
 
+echo "bit-perfect addition"
+curl -fsSL https://raw.githubusercontent.com/FaqatZubair1/scripts/main/bitperfect_direct.sh | bash
+
 
 echo " generating keys "
 cd v*/v*/ke*
