@@ -58,59 +58,39 @@ echo "===== per-app rotation toggle ====="
   echo "per-app rotation patch applied"
 ) || { echo "!!! per-app rotation patch FAILED - stopping"; exit 1; }
 
-echo "===== zygote_next: log reinit error + tmpfs sepolicy ====="
+echo "===== zygote_next: anon-inode fd classification fix + tmpfs sepolicy ====="
 (
   set -e
-  # reset leftovers from a previous run
-  git -C system/zygote checkout -- zygote/src/server.rs
+  git -C system/zygote checkout -- zygote/src/server.rs zygote/src/file_descriptors.rs
   git -C system/sepolicy checkout -- private/zygote_next.te
 
   python3 - <<'PY'
 import sys
-p = "system/zygote/zygote/src/server.rs"
+p = "system/zygote/zygote/src/file_descriptors.rs"
 s = open(p).read()
-old = ".map_err(|_| ClientError::Reinitialization)?;"
+old = "            libc::S_IFCHR | libc::S_IFREG => Self::get_file_info(fd, &stat),\n"
 if s.count(old) != 1:
-    sys.exit("server.rs: pattern found %d times, expected 1 - patch by hand" % s.count(old))
-new = (".map_err(|e| {\n"
-       "                    error!(\"re_initialize_as_subspecies failed: {e:?}\");\n"
-       "                    ClientError::Reinitialization\n"
-       "                })?;")
+    sys.exit("file_descriptors.rs: anchor found %d times, expected 1" % s.count(old))
+new = '''            libc::S_IFCHR | libc::S_IFREG => {
+                // Older kernels (e.g. 5.4) report anonymous inodes such as
+                // signalfd and eventpoll as S_IFCHR; classify them by their
+                // /proc link like the fallback arm below does.
+                if let Ok(link) = get_proc_fd_link_info(fd) {
+                    if let Ok(link_cstr) = link.as_cstr() {
+                        if link_cstr == PROC_METADATA_SIGNALFD {
+                            return Ok(FileDescriptorInfo::SignalFd);
+                        }
+                        if link_cstr == PROC_METADATA_EPOLLFD {
+                            return Ok(FileDescriptorInfo::EPollFd);
+                        }
+                    }
+                }
+                Self::get_file_info(fd, &stat)
+            }
+'''
 open(p, "w").write(s.replace(old, new))
-print("server.rs patched")
+print("file_descriptors.rs patched")
 PY
-
-  python3 - <<'PY'
-p = "system/zygote/zygote/src/server.rs"
-s = open(p).read()
-
-def ins_after(s, anchor, text, label):
-    if s.count(anchor) != 1:
-        print("[dbg] WARNING anchor for %s found %d times - skipped" % (label, s.count(anchor)))
-        return s
-    return s.replace(anchor, anchor + text)
-
-# who calls remove_client_socket, with which fd, and a backtrace
-s = ins_after(s,
-  "fn remove_client_socket(&mut self, fd: RawFd) -> ClientResult<()> {\n",
-  "        error!(\"DBG remove_client_socket fd={fd} bt={}\", std::backtrace::Backtrace::force_capture());\n",
-  "remove_client_socket")
-
-# did re-init start / finish
-s = ins_after(s,
-  "fn re_initialize_as_subspecies(&mut self, child_socket_path: String) -> ServerResult<()> {\n",
-  "        error!(\"DBG reinit start\");\n",
-  "reinit start")
-anchor = "        self.pid = sys::getpid();\n\n        Ok(())\n"
-if s.count(anchor) == 1:
-    s = s.replace(anchor, "        self.pid = sys::getpid();\n        error!(\"DBG reinit done\");\n\n        Ok(())\n")
-else:
-    print("[dbg] WARNING reinit-done anchor found %d times - skipped" % s.count(anchor))
-
-open(p, "w").write(s)
-print("[dbg] done")
-PY
-
 
   TE=system/sepolicy/private/zygote_next.te
   [ -f "$TE" ] || { echo "$TE missing"; exit 1; }
