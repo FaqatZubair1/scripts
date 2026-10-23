@@ -59,8 +59,6 @@ echo "three finger screenshot fix"
 
 curl -fsSL https://raw.githubusercontent.com/FaqatZubair1/scripts/main/fix_screenshot_display.sh | bash
 
-echo "bit-perfect addition"
-curl -fsSL https://raw.githubusercontent.com/FaqatZubair1/scripts/main/bitperfect_direct.sh | bash
 
 
 echo " generating keys "
@@ -76,7 +74,7 @@ echo "Building Rom"
 echo "=================="
 
 # Build rom
-echo "making resukisu boot.img"
+echo "adding resukisu"
 rm -rf kernel/moto*/sm*
 git clone https://github.com/project-moon-gazer/android_kernel_motorola_sm6375.git -b susfs kernel/motorola/sm6375
 cd kernel/moto*/sm*
@@ -87,5 +85,4 @@ ln -sfn ../KernelSU/kernel drivers/kernelsu
 grep -q kernelsu drivers/Makefile || printf '\nobj-$(CONFIG_KSU) += kernelsu/\n' >> drivers/Makefile
 cd ../../..
 
-lunch voltage_fogos-cp2a-user
-mka bootimage
+brunch fogos
