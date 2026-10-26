@@ -81,7 +81,8 @@ rm -rf kernel/moto*/sm*
 git clone https://github.com/project-moon-gazer/android_kernel_motorola_sm6375.git -b susfs kernel/motorola/sm6375
 cd kernel/moto*/sm*
 rm -rf KernelSU
-curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
+git clone --depth=1 https://github.com/ReSukiSU/ReSukiSU KernelSU
+[ -f KernelSU/kernel/Kconfig ] || { echo "!!! KernelSU missing"; exit 1; }
 cd ../../..
 
 brunch fogos
