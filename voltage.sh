@@ -76,6 +76,9 @@ echo "Building Rom"
 echo "=================="
 
 # Build rom
+
+brunch fogos
+
 echo "adding resukisu"
 rm -rf kernel/moto*/sm*
 git clone https://github.com/project-moon-gazer/android_kernel_motorola_sm6375.git -b susfs kernel/motorola/sm6375
@@ -85,4 +88,4 @@ git clone --depth=1 https://github.com/Baka-SU/BakaSU KernelSU
 [ -f KernelSU/kernel/Kconfig ] || { echo "!!! KernelSU missing"; exit 1; }
 cd ../../..
 
-brunch fogos
+mka bootimage
