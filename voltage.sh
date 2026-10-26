@@ -61,11 +61,6 @@ echo "three finger screenshot fix"
 
 curl -fsSL https://raw.githubusercontent.com/FaqatZubair1/scripts/main/fix_screenshot_display.sh | bash
 
-cd kernel/moto*/sm*
-
-curl -LSs https://raw.githubusercontent.com/FaqatZubair1/scripts/main/fsm_stall_fix.sh | bash
-
-cd ../../..
 
 echo " generating keys "
 cd v*/v*/ke*
