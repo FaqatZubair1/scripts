@@ -75,6 +75,7 @@ echo "Building Rom"
 echo "=================="
 
 # Build rom
+make installclean
 
 brunch fogos
 
