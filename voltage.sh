@@ -79,8 +79,46 @@ make installclean
 
 brunch fogos
 
-echo "adding resukisu"
+echo "adding ksu"
 rm -rf kernel/moto*/sm*
 git clone https://github.com/project-moon-gazer/android_kernel_motorola_sm6375.git -b cnb kernel/motorola/sm6375
 
 mka bootimage
+
+########################################
+# UPLOAD AND CLEANUP
+########################################
+
+ZIP_FILE=$(ls -t out/target/product/fogos/voltage*.zip 2>/dev/null | head -n 1)
+
+if [ -n "$ZIP_FILE" ] && [ -f "$ZIP_FILE" ]; then
+    echo "==> Uploading $ZIP_FILE to GoFile..."
+    SERVER=""
+    for i in {1..3}; do
+        SERVER_RESP=$(curl -s https://api.gofile.io/servers)
+        SERVER=$(echo "$SERVER_RESP" | grep -o '"name":"[^"]*' | head -n 1 | cut -d'"' -f4)
+        [ -n "$SERVER" ] && break
+        sleep 3
+    done
+
+    UPLOAD_SUCCESS=false
+    if [ -n "$SERVER" ]; then
+        UPLOAD_RES=$(curl -# -F "file=@$ZIP_FILE" "https://${SERVER}.gofile.io/contents/uploadfile")
+        if echo "$UPLOAD_RES" | grep -q '"status":"ok"'; then
+            DOWNLOAD_PAGE=$(echo "$UPLOAD_RES" | grep -o '"downloadPage":"[^"]*' | cut -d'"' -f4)
+            echo "=================================================="
+            echo "GOFILE LINK: $DOWNLOAD_PAGE"
+            echo "=================================================="
+            UPLOAD_SUCCESS=true
+        fi
+    fi
+
+    if [ "$UPLOAD_SUCCESS" = false ]; then
+        echo "==> FALLBACK: Uploading to Pixeldrain..."
+        PD_RESPONSE=$(curl -s -F "file=@$ZIP_FILE" https://pixeldrain.com/api/file/)
+        PD_FILE_ID=$(echo "$PD_RESPONSE" | grep -o '"id":"[^"]*' | cut -d'"' -f4)
+        echo "=================================================="
+        echo "PIXELDRAIN LINK: https://pixeldrain.com/u/$PD_FILE_ID"
+        echo "=================================================="
+    fi
+fi
