@@ -28,11 +28,14 @@ import re, sys
 path, mark = sys.argv[1], sys.argv[2]
 src = open(path).read()
 # SET_ERR("... out-of-order ...", args);  ->  ALOGW(...)  (same args; the following 'return;' is kept)
-pat = re.compile(r'SET_ERR\(\s*("Shutter notification out-of-order[^;]*?)\)\s*;', re.S)
+pat = re.compile(r'(?:\w*SET_ERR\w*|[\w.>-]*setErrorState)\(\s*("Shutter notification out-of-order[^;]*?)\)\s*;', re.S)
 new, n = pat.subn(lambda m: '/* %s: stock Moto HAL reports ZSL original frame numbers; ignore stale shutters\n'
                   '             instead of putting the device into an error state */\n'
                   '            ALOGW(%s);' % (mark, m.group(1)), src)
-if n != 1:
+if n < 1:
+    import subprocess
+    sys.stderr.write('--- no match; surrounding source (paste this to Claude):\n')
+    subprocess.call(['grep','-n','-B12','-A8','Shutter notification out-of-order',path], stdout=sys.stderr)
     sys.exit(1)
 open(path, 'w').write(new)
 print("patched %d site in %s" % (n, path))
