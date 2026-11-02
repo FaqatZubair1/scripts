@@ -21,7 +21,7 @@ echo "=================="
 
 echo "===== Sync the repositories ========"
 
-repo sync
+repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j$(nproc --all)
 
 echo "======== Syncing Done =========="
 
