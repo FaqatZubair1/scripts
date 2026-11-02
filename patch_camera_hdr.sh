@@ -28,7 +28,7 @@ import re, sys
 path, mark = sys.argv[1], sys.argv[2]
 src = open(path).read()
 # SET_ERR("... out-of-order ...", args);  ->  ALOGW(...)  (same args; the following 'return;' is kept)
-pat = re.compile(r'(?:\w*SET_ERR\w*|[\w.>-]*setErrorState)\(\s*("Shutter notification out-of-order[^;]*?)\)\s*;', re.S)
+pat = re.compile(r'(?:\w*SET_ERR\w*|[\w.>-]*setErrorState)\(\s*(?:[A-Z_]+\s*,\s*)?("Shutter notification out-of-order[^;]*?)\)\s*;', re.S)
 new, n = pat.subn(lambda m: '/* %s: stock Moto HAL reports ZSL original frame numbers; ignore stale shutters\n'
                   '             instead of putting the device into an error state */\n'
                   '            ALOGW(%s);' % (mark, m.group(1)), src)
