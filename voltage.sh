@@ -6,7 +6,7 @@ rm -rf kernel/*
 rm -rf device/*
 rm -rf vendor/*
 rm -rf hardware/*
-rm -rf out/target/product/fogos/*
+
 echo "===== reset leftover patches ====="
 git -C system/zygote checkout -- . 2>/dev/null || true
 git -C system/sepolicy checkout -- . 2>/dev/null || true
