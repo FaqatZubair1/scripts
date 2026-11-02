@@ -82,11 +82,6 @@ make installclean
 
 brunch fogos
 
-echo "adding ksu"
-rm -rf kernel/moto*/sm*
-git clone https://github.com/project-moon-gazer/android_kernel_motorola_sm6375.git -b cnb kernel/motorola/sm6375
-
-mka bootimage
 
 ########################################
 # UPLOAD AND CLEANUP
