@@ -43,8 +43,7 @@ export TZ=Asia/Bishkek
 echo "=================="
 echo " Exports Done "
 echo "=================="
-rm -rf kernel/motorola/sm*
-git clone https://github.com/project-moon-gazer/android_kernel_motorola_sm6375.git -b cnb kernel/motorola/sm6375
+
 
 echo "===== per-app rotation toggle ====="
 (
