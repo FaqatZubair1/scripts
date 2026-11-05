@@ -59,8 +59,9 @@ echo "three finger screenshot fix"
 
 curl -fsSL https://raw.githubusercontent.com/FaqatZubair1/scripts/main/fix_screenshot_display.sh | bash
 
-curl -fsSL https://raw.githubusercontent.com/FaqatZubair1/scripts/main/patch_camera_hdr.sh | bash
 
+echo "adding high quality audio support"
+https://raw.githubusercontent.com/FaqatZubair1/scripts/main/bitperfect_direct.sh
 
 echo " generating keys "
 cd v*/v*/ke*
