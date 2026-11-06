@@ -55,6 +55,15 @@ echo "===== per-app rotation toggle ====="
 ) || { echo "!!! per-app rotation patch FAILED - stopping"; exit 1; }
 
 
+echo "applying dolby patch"
+
+  git checkout -- .    # drop leftovers from a previous run
+  curl -fsSL -o /tmp/dolby_fix_status_check.patch \
+    https://raw.githubusercontent.com/FaqatZubair1/scripts/main/dolby_fix_status_check.patch
+  git apply --check /tmp/per_app_rotation_toggle.patch
+  git apply /tmp/dolby_fix_status_check.patch
+  echo "dolby patch applied"
+
 echo "three finger screenshot fix"
 
 curl -fsSL https://raw.githubusercontent.com/FaqatZubair1/scripts/main/fix_screenshot_display.sh | bash
