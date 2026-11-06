@@ -1,0 +1,40 @@
+diff --git a/src/co/aospa/dolby/DolbyAudioEffect.kt b/src/co/aospa/dolby/DolbyAudioEffect.kt
+index 5a3081b..0a2416d 100644
+--- a/src/co/aospa/dolby/DolbyAudioEffect.kt
++++ b/src/co/aospa/dolby/DolbyAudioEffect.kt
+@@ -40,7 +40,7 @@ class DolbyAudioEffect(priority: Int, audioSession: Int) :
+         int32ToByteArray(value, buf, 8)
+         try {
+             val status = setParameter(EFFECT_PARAM_CPDP_VALUES, buf)
+-            if (status != SUCCESS) {
++            if (status < 0) {
+                 dlog(TAG, "setIntParam($param, $value) returned status: $status")
+             }
+         } catch (e: Exception) {
+@@ -53,7 +53,7 @@ class DolbyAudioEffect(priority: Int, audioSession: Int) :
+         int32ToByteArray(param, buf, 0)
+         return try {
+             val status = getParameter(EFFECT_PARAM_CPDP_VALUES + param, buf)
+-            if (status == SUCCESS) {
++            if (status >= 0) {
+                 byteArrayToInt32(buf).also { dlog(TAG, "getIntParam($param): $it") }
+             } else {
+                 dlog(TAG, "getIntParam($param) returned status: $status")
+@@ -85,7 +85,7 @@ class DolbyAudioEffect(priority: Int, audioSession: Int) :
+         int32ArrayToByteArray(values, buf, 16)
+         try {
+             val status = setParameter(EFFECT_PARAM_CPDP_VALUES, buf)
+-            if (status != SUCCESS) {
++            if (status < 0) {
+                 dlog(TAG, "setDapParameter($param) returned status: $status")
+             }
+         } catch (e: Exception) {
+@@ -106,7 +106,7 @@ class DolbyAudioEffect(priority: Int, audioSession: Int) :
+         val p = (param.id shl 16) + (profile shl 8) + EFFECT_PARAM_GET_PROFILE_PARAMETER
+         return try {
+             val status = getParameter(p, buf)
+-            if (status == SUCCESS) {
++            if (status >= 0) {
+                 byteArrayToInt32Array(buf, length)
+             } else {
+                 dlog(TAG, "getDapParameter($param) returned status: $status")
