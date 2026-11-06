@@ -56,13 +56,23 @@ echo "===== per-app rotation toggle ====="
 
 
 echo "applying dolby patch"
+set -e
+cd packages/apps/DolbyAtmos        # adjust to the real path
 
-  git checkout -- .    # drop leftovers from a previous run
-  curl -fsSL -o /tmp/dolby_fix_status_check.patch \
-    https://raw.githubusercontent.com/FaqatZubair1/scripts/main/dolby_fix_status_check.patch
-  git apply --check /tmp/per_app_rotation_toggle.patch
-  git apply /tmp/dolby_fix_status_check.patch
+PATCH=/tmp/dolby_fix_status_check.patch
+curl -fsSL -o "$PATCH" \
+  https://raw.githubusercontent.com/FaqatZubair1/scripts/main/dolby_fix_status_check.patch
+
+if git apply --check "$PATCH" 2>/dev/null; then
+  git apply "$PATCH"
   echo "dolby patch applied"
+elif git apply --check -R "$PATCH" 2>/dev/null; then
+  echo "dolby patch already applied"
+else
+  echo "dolby patch does not apply" >&2
+  exit 1
+fi
+  
 
 echo "three finger screenshot fix"
 
