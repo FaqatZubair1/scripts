@@ -58,5 +58,6 @@
 
   <extend-project name="hardware_qcom-caf_common" path="hardware/qcom-caf/common" remote="sedona61" revision="refs/heads/17.0">
     <linkfile src="os_pickup_qssi.bp" dest="hardware/qcom-caf/sm6375-6.1/Android.bp" />
+      <project name="vendor_motorola_camera" path="vendor/motorola/camera" remote="sedona61" revision="refs/heads/main" clone-depth="1" />
   </extend-project>
 </manifest>
