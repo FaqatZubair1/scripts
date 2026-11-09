@@ -36,12 +36,6 @@
   <project name="LineageOS/android_hardware_motorola" path="hardware/motorola" remote="github" revision="50e65e5fd3ede70dd6417a9dbfe0ce5d798c626e" />
   <remove-project path="hardware/samsung_slsi/nfc" optional="true" />
   <project name="LineageOS/android_hardware_samsung_slsi_nfc" path="hardware/samsung_slsi/nfc" remote="github" revision="88490b4408246e6c10ef1a6942844796f66dee5e" />
-  <remove-project path="device/motorola/rhodep" optional="true" />
-  <project name="android_device_motorola_rhodep" path="device/motorola/rhodep" remote="sedona61" revision="refs/heads/lineage-24.0-6.1" />
-  <remove-project path="vendor/motorola/rhodep" optional="true" />
-  <project name="proprietary_vendor_motorola_rhodep" path="vendor/motorola/rhodep" remote="sedona61" revision="refs/heads/lineage-24.0-6.1" />
-  <remove-project path="device/motorola/rhodep-kernel" optional="true" />
-  <project name="android_device_motorola_rhodep-kernel" path="device/motorola/rhodep-kernel" remote="sedona61" revision="refs/heads/lineage-24.0-6.1" />
   <extend-project name="hardware_qcom-caf_common" path="hardware/qcom-caf/common" remote="sedona61" revision="refs/heads/17.0">
     <linkfile src="os_pickup_qssi.bp" dest="hardware/qcom-caf/sm6375-6.1/Android.bp" />
   </extend-project>
