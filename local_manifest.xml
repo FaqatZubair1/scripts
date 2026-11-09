@@ -2,40 +2,61 @@
 <manifest>
   <remote name="sedona61" fetch="https://github.com/Motorola-Sedona61/" />
   <remote name="github" fetch="https://github.com/" />
+  <remote name="pencil" fetch="https://github.com/pencil-association/" />
+
+  <!-- Device trees from pencil-association -->
   <remove-project path="device/motorola/fogos" optional="true" />
-  <project name="android_device_motorola_fogos" path="device/motorola/fogos" remote="sedona61" revision="refs/heads/lineage-24.0-6.1" />
+  <project name="android_device_motorola_fogos" path="device/motorola/fogos" remote="pencil" revision="refs/heads/vos" />
+
   <remove-project path="device/motorola/sm6375-common" optional="true" />
-  <project name="android_device_motorola_sm6375-common" path="device/motorola/sm6375-common" remote="sedona61" revision="refs/heads/lineage-24.0-6.1" />
+  <project name="android_device_motorola_sm6375-common" path="device/motorola/sm6375-common" remote="pencil" revision="refs/heads/vos" />
+
   <remove-project path="device/motorola/fogos-kernel" optional="true" />
   <project name="android_device_motorola_fogos-kernel" path="device/motorola/fogos-kernel" remote="sedona61" revision="refs/heads/lineage-24.0-6.1" />
+
   <remove-project path="vendor/motorola/fogos" optional="true" />
   <project name="proprietary_vendor_motorola_fogos" path="vendor/motorola/fogos" remote="sedona61" revision="refs/heads/lineage-24.0-6.1" />
+
   <remove-project path="vendor/motorola/sm6375-common" optional="true" />
   <project name="proprietary_vendor_motorola_sm6375-common" path="vendor/motorola/sm6375-common" remote="sedona61" revision="refs/heads/lineage-24.0-6.1" />
+
   <remove-project path="vendor/qcom/opensource/healthd-ext" optional="true" />
   <project name="android_vendor_qcom_opensource_healthd-ext" path="vendor/qcom/opensource/healthd-ext" remote="sedona61" revision="refs/heads/lineage-24.0-6.1" />
+
   <remove-project path="hardware/qcom-caf/bootctrl" optional="true" />
   <project name="android_hardware_qcom_bootctrl" path="hardware/qcom-caf/bootctrl" remote="sedona61" revision="refs/heads/lineage-24.0-6.1" />
+
   <remove-project path="hardware/qcom-caf/fogos-legacy-audio" optional="true" />
   <project name="android_hardware_qcom_audio" path="hardware/qcom-caf/fogos-legacy-audio" remote="sedona61" revision="refs/heads/lineage-24.0-6.1" />
+
   <remove-project path="hardware/qcom-caf/sm6375-6.1/display" optional="true" />
   <project name="android_hardware_qcom_display" path="hardware/qcom-caf/sm6375-6.1/display" remote="sedona61" revision="refs/heads/lineage-24.0-6.1" />
+
   <remove-project path="hardware/qcom-caf/sm6375-6.1/audio/primary-hal" optional="true" />
   <project name="android_hardware_qcom_audio_ar" path="hardware/qcom-caf/sm6375-6.1/audio/primary-hal" remote="sedona61" revision="refs/heads/lineage-24.0-6.1" />
+
   <remove-project path="hardware/qcom-caf/sm6375-6.1/audio/pal" optional="true" />
   <project name="android_vendor_qcom_opensource_arpal_lx" path="hardware/qcom-caf/sm6375-6.1/audio/pal" remote="sedona61" revision="refs/heads/lineage-24.0-6.1" />
+
   <remove-project path="hardware/qcom-caf/sm6375-6.1/audio/agm" optional="true" />
   <project name="android_vendor_qcom_opensource_agm" path="hardware/qcom-caf/sm6375-6.1/audio/agm" remote="sedona61" revision="refs/heads/lineage-24.0-6.1" />
+
   <remove-project path="hardware/qcom-caf/sm6375-6.1/audio/graphservices" optional="true" />
   <project name="android_vendor_qcom_opensource_audioreach_graphservices" path="hardware/qcom-caf/sm6375-6.1/audio/graphservices" remote="sedona61" revision="refs/heads/lineage-24.0-6.1" />
+
   <remove-project path="hardware/qcom-caf/sm6375-6.1/data-ipa-cfg-mgr" optional="true" />
   <project name="android_vendor_qcom_opensource_data_ipa_cfg_mgr" path="hardware/qcom-caf/sm6375-6.1/data-ipa-cfg-mgr" remote="sedona61" revision="refs/heads/lineage-24.0-6.1" />
+
   <remove-project path="hardware/qcom-caf/sm6375-6.1/dataipa" optional="true" />
   <project name="android_vendor_qcom_opensource_dataipa" path="hardware/qcom-caf/sm6375-6.1/dataipa" remote="sedona61" revision="refs/heads/lineage-24.0-6.1" />
+
   <remove-project path="hardware/motorola" optional="true" />
   <project name="LineageOS/android_hardware_motorola" path="hardware/motorola" remote="github" revision="50e65e5fd3ede70dd6417a9dbfe0ce5d798c626e" />
+
   <remove-project path="hardware/samsung_slsi/nfc" optional="true" />
   <project name="LineageOS/android_hardware_samsung_slsi_nfc" path="hardware/samsung_slsi/nfc" remote="github" revision="88490b4408246e6c10ef1a6942844796f66dee5e" />
+
   <extend-project name="hardware_qcom-caf_common" path="hardware/qcom-caf/common" remote="sedona61" revision="refs/heads/17.0">
     <linkfile src="os_pickup_qssi.bp" dest="hardware/qcom-caf/sm6375-6.1/Android.bp" />
   </extend-project>
+</manifest>
