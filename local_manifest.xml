@@ -55,8 +55,7 @@
 
   <remove-project path="hardware/samsung_slsi/nfc" optional="true" />
   <project name="LineageOS/android_hardware_samsung_slsi_nfc" path="hardware/samsung_slsi/nfc" remote="github" revision="88490b4408246e6c10ef1a6942844796f66dee5e" />
-
-  <extend-project name="hardware_qcom-caf_common" path="hardware/qcom-caf/common" remote="sedona61" revision="refs/heads/17.0">
-    <linkfile src="os_pickup_qssi.bp" dest="hardware/qcom-caf/sm6375-6.1/Android.bp" />
-  </extend-project>
+<extend-project name="hardware_qcom-caf_common" path="hardware/qcom-caf/common">
+  <linkfile src="os_pickup_qssi.bp" dest="hardware/qcom-caf/sm6375-6.1/Android.bp" />
+</extend-project>
 </manifest>
