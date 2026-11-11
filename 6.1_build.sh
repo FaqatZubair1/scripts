@@ -152,10 +152,10 @@ fi
 step_done
 
 # 7. Build
-step "Building ROM (brunch $DEVICE)"
+step "Building ROM (brunch fogos)"
 # shellcheck disable=SC1091
 . build/envsetup.sh >> "$LOG" 2>&1
-brunch "$DEVICE" 2>&1 | build_progress
+brunch fogos 2>&1 | build_progress
 step_done
 
 # ---------- Summary ----------
