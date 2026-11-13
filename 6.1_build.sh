@@ -20,7 +20,7 @@ curl -fsSL -o .repo/local_manifests/local_manifest.xml "$LOCAL_MANIFEST_URL"
 echo "Local manifest added"
 
 echo "===== Sync the repositories ========"
-repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j$(nproc --all)
+repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync --depth=1 -j$(nproc --all)
 echo "======== Syncing Done =========="
 
 echo " generating keys "
