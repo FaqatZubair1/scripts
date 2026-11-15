@@ -36,5 +36,5 @@ echo "Building Rom"
 echo "=================="
 
 # Build rom
-rbe_auto
+bash rbe_auto
 brunch fogos
