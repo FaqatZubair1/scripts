@@ -31,10 +31,3 @@ cd ../../..
 # Set up build environment
 . build/envsetup.sh
 
-echo "=================="
-echo "Building Rom"
-echo "=================="
-
-# Build rom
-bash rbe_auto
-brunch fogos
