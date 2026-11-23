@@ -12,7 +12,7 @@
   <project name="android_device_motorola_sm6375-common" path="device/motorola/sm6375-common" remote="pencil" revision="refs/heads/vos" />
 
   <remove-project path="device/motorola/fogos-kernel" optional="true" />
-  <project name="android_device_motorola_fogos-kernel" path="device/motorola/fogos-kernel" remote="sedona61" revision="refs/heads/lineage-24.0-6.1" />
+  <project name="android_device_motorola_fogos-kernel" path="device/motorola/fogos-kernel" remote="pencil" revision="refs/heads/lineage-24.0-6.1" />
 
   <remove-project path="vendor/motorola/fogos" optional="true" />
   <project name="proprietary_vendor_motorola_fogos" path="vendor/motorola/fogos" remote="sedona61" revision="refs/heads/lineage-24.0-6.1" />
