@@ -20,6 +20,10 @@
   <remove-project path="vendor/motorola/sm6375-common" optional="true" />
   <project name="proprietary_vendor_motorola_sm6375-common" path="vendor/motorola/sm6375-common" remote="sedona61" revision="refs/heads/lineage-24.0-6.1" />
 
+  <project name="proprietary_vendor_motorola_dolby" path="vendor/motorola/dolby" remote="sedona61" revision="refs/heads/lineage-24.0" clone-depth="1" />
+    <project name="packages_halcyon_apps_Dolby" path="packages/apps/Dolby" remote="sedona61" revision="refs/heads/17.0" clone-depth="1" />
+
+  
   <remove-project path="vendor/qcom/opensource/healthd-ext" optional="true" />
   <project name="android_vendor_qcom_opensource_healthd-ext" path="vendor/qcom/opensource/healthd-ext" remote="sedona61" revision="refs/heads/lineage-24.0-6.1" />
 
