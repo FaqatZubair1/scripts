@@ -6,19 +6,19 @@
 
   <!-- Device trees from pencil-association -->
   <remove-project path="device/motorola/fogos" optional="true" />
-  <project name="android_device_motorola_fogos" path="device/motorola/fogos" remote="pencil" revision="refs/heads/vos" />
+  <project name="android_device_motorola_fogos" path="device/motorola/fogos" remote="pencil" revision="refs/heads/pelt" />
 
   <remove-project path="device/motorola/sm6375-common" optional="true" />
-  <project name="android_device_motorola_sm6375-common" path="device/motorola/sm6375-common" remote="pencil" revision="refs/heads/vos" />
+  <project name="android_device_motorola_sm6375-common" path="device/motorola/sm6375-common" remote="pencil" revision="refs/heads/pelt" />
 
   <remove-project path="device/motorola/fogos-kernel" optional="true" />
-  <project name="android_device_motorola_fogos-kernel" path="device/motorola/fogos-kernel" remote="pencil" revision="refs/heads/lineage-24.0-6.1" />
+  <project name="android_device_motorola_fogos-kernel" path="device/motorola/fogos-kernel" remote="sedona61" revision="refs/heads/lineage-24.0" />
 
   <remove-project path="vendor/motorola/fogos" optional="true" />
-  <project name="proprietary_vendor_motorola_fogos" path="vendor/motorola/fogos" remote="sedona61" revision="refs/heads/lineage-24.0-6.1" />
+  <project name="proprietary_vendor_motorola_fogos" path="vendor/motorola/fogos" remote="sedona61" revision="refs/heads/lineage-24.0" />
 
   <remove-project path="vendor/motorola/sm6375-common" optional="true" />
-  <project name="proprietary_vendor_motorola_sm6375-common" path="vendor/motorola/sm6375-common" remote="sedona61" revision="refs/heads/lineage-24.0-6.1" />
+  <project name="proprietary_vendor_motorola_sm6375-common" path="vendor/motorola/sm6375-common" remote="sedona61" revision="refs/heads/lineage-24.0" />
 
   <project name="proprietary_vendor_motorola_dolby" path="vendor/motorola/dolby" remote="sedona61" revision="refs/heads/lineage-24.0" clone-depth="1" />
     <project name="packages_halcyon_apps_Dolby" path="packages/apps/Dolby" remote="sedona61" revision="refs/heads/17.0" clone-depth="1" />
